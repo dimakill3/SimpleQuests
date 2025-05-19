@@ -33,11 +33,6 @@ namespace _Assets.Scripts.Game.Installers
         private void BindFactories()
         {
             Container
-                .Bind<IEnemySpawner>()
-                .To<EnemySpawner>()
-                .AsSingle();
-            
-            Container
                 .Bind<IEnemiesPool>()
                 .To<EnemiesPool>()
                 .AsSingle();
@@ -50,6 +45,10 @@ namespace _Assets.Scripts.Game.Installers
 
         private void BindServices()
         {
+            Container
+                .Bind<IEnemySpawner>()
+                .To<EnemySpawner>()
+                .AsSingle();
             Container
                 .Bind<IPlayTimeService>()
                 .To<PlayTimeService>()

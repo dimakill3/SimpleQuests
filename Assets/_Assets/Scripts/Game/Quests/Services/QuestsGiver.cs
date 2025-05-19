@@ -3,6 +3,8 @@ using _Assets.Scripts.Core.Infrastructure.Utils;
 using _Assets.Scripts.Game.Enemies.Enums;
 using _Assets.Scripts.Game.Quests.Configs;
 using _Assets.Scripts.Game.Quests.Enums;
+using _Assets.Scripts.Game.Quests.Utils;
+using UnityEngine;
 using Zenject;
 
 namespace _Assets.Scripts.Game.Quests.Services
@@ -40,10 +42,11 @@ namespace _Assets.Scripts.Game.Quests.Services
                 var quests = new Quest[questsToGive.Length];
                 for (var i = 0; i < questsToGive.Length; i++)
                 {
-                    if (questsToGive[i].TargetTemplate != null && questsToGive[i].TargetTemplate.Randomize)
-                        RandomizeQuest(questsToGive[i]);
+                    var quest = questsToGive[i];    
+                    if (quest.TargetTemplate != null && quest.TargetTemplate.Randomize)
+                        quest = QuestUtils.RandomizeQuest(quest);
 
-                    quests[i] = new Quest(questsToGive[i]);
+                    quests[i] = new Quest(quest);
                 }
 
                 _currentQuests = quests;
@@ -51,16 +54,6 @@ namespace _Assets.Scripts.Game.Quests.Services
             }
 
             return _currentQuests;
-        }
-
-        private void RandomizeQuest(QuestConfig questConfig)
-        {
-            switch (questConfig.TargetTemplate.PropertyToRandomize)
-            {
-                case PropertyToRandomize.EnemyType:
-                    questConfig.TargetTemplate.EnemyType = EnumUtils.GetRandomEnumValue(EnemyType.None);
-                    break;
-            }
         }
     }
 }

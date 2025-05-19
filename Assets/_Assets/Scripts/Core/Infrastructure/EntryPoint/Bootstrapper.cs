@@ -35,8 +35,8 @@ namespace _Assets.Scripts.Core.Infrastructure.EntryPoint
         {
             _stateMachine = new StateMachine.StateMachine();
             _stateMachine.AddState(new LoadLevelState(_stateMachine, _windowProvider, _sceneLoader));
-            _stateMachine.AddState(new StartGameState(_stateMachine, _windowProvider, _gameConfig, _container));
-            _stateMachine.AddState(new EndGameState(_stateMachine));
+            _stateMachine.AddState(new StartGameState(_stateMachine, _gameConfig));
+            _stateMachine.AddState(new EndGameState(_stateMachine, _gameConfig));
         }
 
         private void StartGame() =>

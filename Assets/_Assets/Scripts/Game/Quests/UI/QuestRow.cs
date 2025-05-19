@@ -18,14 +18,17 @@ namespace _Assets.Scripts.Game.Quests.UI
             _questConfig = quest.Config;
             
             completedBg.gameObject.SetActive(false);
-            description.text = _questConfig.Description.Replace("{}", _questConfig.Steps.ToString());
-
+            description.text = _questConfig.Description;
+            UpdateProgress(0, _questConfig.Steps);
+            
             quest.OnProgress += UpdateProgress;
             quest.OnCompleted += HandleQuestCompleted;
+            
+            gameObject.SetActive(true);
         }
 
         private void UpdateProgress(int currentStep, int steps) =>
-            progressText.text = _questConfig.Steps + "/" + steps;
+            progressText.text = currentStep + "/" + steps;
 
         private void HandleQuestCompleted() =>
             completedBg.gameObject.SetActive(true);

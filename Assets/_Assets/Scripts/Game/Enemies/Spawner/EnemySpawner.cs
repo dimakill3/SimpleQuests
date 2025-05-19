@@ -10,13 +10,13 @@ using Cysharp.Threading.Tasks;
 
 namespace _Assets.Scripts.Game.Enemies.Spawner
 {
-    public interface IEnemySpawner
+    public interface IEnemySpawner : IDisposable
     {
         public void StartSpawn();
         public void StopSpawn();
     }
 
-    public class EnemySpawner : IEnemySpawner, IDisposable
+    public class EnemySpawner : IEnemySpawner
     {
         private readonly GameConfig _gameConfig;
         private readonly SpawnConfig _spawnConfig;
@@ -50,8 +50,8 @@ namespace _Assets.Scripts.Game.Enemies.Spawner
 
         public void Dispose()
         {
-            _enemiesPool?.Dispose();
             _spawnCts?.Dispose();
+            _enemiesPool?.Dispose();
         }
 
         private async UniTaskVoid SpawnLoop(CancellationToken token)
@@ -59,7 +59,7 @@ namespace _Assets.Scripts.Game.Enemies.Spawner
             while (!token.IsCancellationRequested)
             {
                 if (_currentEnemiesCount >= _spawnConfig.MaxObjectsCount)
-                    continue;
+                    await UniTask.WaitForFixedUpdate();
                 
                 SpawnEnemy().Forget();
                 _currentEnemiesCount++;

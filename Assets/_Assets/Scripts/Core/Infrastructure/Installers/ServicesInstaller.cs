@@ -9,7 +9,7 @@ using EventProvider = _Assets.Scripts.Core.Infrastructure.EventManagement.EventP
 
 namespace _Assets.Scripts.Core.Infrastructure.Installers
 {
-    public class ServicesInstaller : MonoInstaller, IInitializable
+    public class ServicesInstaller : MonoInstaller
     {
         [SerializeField] private WindowProvider windowProvider;
         [SerializeField] private MonoService monoService;
@@ -47,8 +47,5 @@ namespace _Assets.Scripts.Core.Infrastructure.Installers
                 .AsSingle()
                 .NonLazy();
         }
-
-        public void Initialize() =>
-            windowProvider.Initialize();
     }
 }

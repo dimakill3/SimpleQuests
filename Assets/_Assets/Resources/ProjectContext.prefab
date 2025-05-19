@@ -190,7 +190,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!1 &7877827355421039810
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +239,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4e6589720da476459dc6dd71624b071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
+  _scriptableObjectInstallers:
+  - {fileID: 11400000, guid: ab00a0719ce449c478eb1218ac89e7ef, type: 2}
   _monoInstallers:
   - {fileID: 4617009333267174407}
   - {fileID: 4814524116868671706}
@@ -281,8 +282,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9764b2158a0413fbb2730b0e10be96f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windowProvider: {fileID: 0}
-  monoService: {fileID: 0}
+  windowProvider: {fileID: 644061839992405837}
+  monoService: {fileID: 1243538955225792832}
 --- !u!1001 &5298797513598584080
 PrefabInstance:
   m_ObjectHideFlags: 0

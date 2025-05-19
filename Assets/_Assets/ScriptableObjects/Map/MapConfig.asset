@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03645982ab244a8f96a16fad28f4be02, type: 3}
   m_Name: MapConfig
   m_EditorClassIdentifier: 
-  MapSize: {x: 20, y: 20, z: 20}
+  MapSize: {x: 20, y: 15, z: 20}

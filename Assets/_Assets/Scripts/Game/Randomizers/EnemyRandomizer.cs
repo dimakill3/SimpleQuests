@@ -67,7 +67,7 @@ namespace _Assets.Scripts.Game.Randomizers
                 }
             }
             
-            var randomValue = UnityEngine.Random.Range(0, _totalSpawnRate);
+            var randomValue = UnityEngine.Random.Range(0, _totalSpawnRate) + 1;
             
             var idx = Array.BinarySearch(_enemiesSpawnRates, randomValue);
             if (idx < 0)

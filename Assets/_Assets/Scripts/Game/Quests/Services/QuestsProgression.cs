@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using _Assets.Scripts.Core.Infrastructure.EventManagement;
 using _Assets.Scripts.Game.Enemies.Enums;
 using _Assets.Scripts.Game.Events;
@@ -10,17 +11,22 @@ namespace _Assets.Scripts.Game.Quests.Services
 {
     public interface IQuestsProgression : IDisposable
     {
+        event Action AllQuestsCompleted;
+        
         void StartProgression();
     }
 
     public class QuestsProgression : IQuestsProgression
     {
+        public event Action AllQuestsCompleted;
+        
         private readonly IQuestsGiver _questsGiver;
         private readonly IEventProvider _eventProvider;
         private readonly IPlayTimeService _playTimeService;
 
         private Quest[] _quests;
-        
+
+
         [Inject]
         public QuestsProgression(IQuestsGiver questsGiver, IEventProvider eventProvider, IPlayTimeService playTimeService)
         {
@@ -35,10 +41,22 @@ namespace _Assets.Scripts.Game.Quests.Services
             
             _eventProvider.Subscribe<EnemyDestroyedEvent>(HandleEnemyDestroyed);
             _playTimeService.OnSecondsChanged += HandleSecondChanged;
+
+            foreach (var quest in _quests)
+                quest.OnCompleted += HandleQuestComplete;
+        }
+
+        private void HandleQuestComplete()
+        {
+            if (_quests.All(q => q.IsCompleted))
+                AllQuestsCompleted?.Invoke();
         }
 
         public void Dispose()
         {
+            foreach (var quest in _quests)
+                quest.OnCompleted -= HandleQuestComplete;
+            
             _eventProvider.UnSubscribe<EnemyDestroyedEvent>(HandleEnemyDestroyed);
             _playTimeService.OnSecondsChanged -= HandleSecondChanged;
         }
@@ -48,10 +66,10 @@ namespace _Assets.Scripts.Game.Quests.Services
             foreach (var quest in _quests)
             {
                 if (quest.Config.QuestType != QuestType.DestroyXEnemies)
-                    return;
+                    continue;
                 
                 if (quest.Config.TargetTemplate == null)
-                    return;
+                    continue;
 
                 if (quest.Config.TargetTemplate.EnemyType == EnemyType.None || quest.Config.TargetTemplate.EnemyType == enemyDestroyedEvent.EnemyType)
                     quest.CompleteStep();
@@ -63,7 +81,7 @@ namespace _Assets.Scripts.Game.Quests.Services
             foreach (var quest in _quests)
             {
                 if (quest.Config.QuestType != QuestType.PlayXSeconds || quest.IsCompleted)
-                    return;
+                    continue;
 
                 quest.CompleteStep();
             }

@@ -14,7 +14,6 @@ namespace _Assets.Scripts.Game.Map
             var activeTerrain = Terrain.activeTerrain;
             
             activeTerrain.terrainData.size = new Vector3(mapSize.x, activeTerrain.terrainData.size.y, mapSize.z);
-            activeTerrain.transform.position = new Vector3(-mapSize.x / 2, 0, -mapSize.z / 2);
             activeTerrain.Flush();
         }
     }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5425117107729858322}
   - component: {fileID: 7662197161602213192}
   - component: {fileID: 2338465069217207185}
+  - component: {fileID: 1509778350128039917}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -122,6 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5bdbaaf18cf461f8f00569fec432f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageable: {fileID: 1509778350128039917}
+  chaoticMovement: {fileID: 2338465069217207185}
 --- !u!114 &2338465069217207185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,5 +135,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb872d266e414d36b190c5f68d42bb87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  minTime: 1
+  maxTime: 3
+--- !u!114 &1509778350128039917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3306572262658825515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024f875160b94b9e8735549cd68b59a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

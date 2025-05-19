@@ -16,11 +16,10 @@ namespace _Assets.Scripts.Core.Infrastructure.WindowManagement
         private void Construct(ISceneLoader sceneLoader)
         {
             _sceneLoader = sceneLoader;
+            
+            _windows.AddRange(GetComponentsInChildren<BaseWindow>(includeInactive: true));
             _sceneLoader.SceneLoaded += HandleSceneLoaded;
         }
-        
-        public void Initialize() =>
-            _windows.AddRange(GetComponentsInChildren<BaseWindow>(includeInactive: true));
 
         private void OnDestroy() =>
             _sceneLoader.SceneLoaded -= HandleSceneLoaded;
